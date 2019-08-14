@@ -158,11 +158,12 @@ Tidy Eval
 
 - Powers data masking from the rlang package 
 - Flexible and robust 
-- "`r {{2 + 2}}`" replacing !! and enquo
+- `{{2 + 2}}` replacing !! and enquo
 
 - Need latest version of rlang
 
-<iframe width="700" height="315" src="https://tidyeval.tidyverse.org/" frameborder="0" allowfullscreen></iframe>
+[tidyeval](https://tidyeval.tidyverse.org/)
+
 
 [slides here](https://speakerdeck.com/lionelhenry/reusing-tidyverse-code)
 
@@ -173,20 +174,18 @@ Nice alternative to Caret
 
 Github
 
-<iframe width="700" height="315" src="https://github.com/mlr-org/mlr3" frameborder="0" allowfullscreen></iframe>
 
-Book (work in progress)
+[Github](https://github.com/mlr-org/mlr3)
 
-<iframe width="700" height="315" src="https://mlr3book.mlr-org.com/use-cases.html" frameborder="0" allowfullscreen></iframe>
+
+[Book (work in progress)](https://mlr3book.mlr-org.com/use-cases.html)
 
 
 ### FREE shiny app authentication 
 
 autho0 Package
 
-
-<iframe width="700" height="315" src="https://github.com/curso-r/auth0" frameborder="0" allowfullscreen></iframe>
-
+[authO](https://github.com/curso-r/auth0)
 
 
 

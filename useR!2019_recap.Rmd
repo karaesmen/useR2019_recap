@@ -2,7 +2,10 @@
 title: "useR! 2019 Recap"
 author: "Ezgi Karaesmen & Katie Sasso-Schafer"
 date: "`r format(Sys.time(), '%a %b %d %Y')`"
-output: html_document
+output: 
+  html_document:
+    toc: true
+    toc_float: true
 editor_options: 
   chunk_output_type: console
 ---
@@ -13,8 +16,9 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, error = FALSE, message=FALSE
 #devtools::install_github("chrk623/dataAnim")
 ```
 
+## Introduction
 
-## Session: Reproducibility
+This is a summary of interesting packages/function we learned at useR! 2019 conference. All presentations are still available at the conference website and can be found here: [user2019.fr/talk_schedule](http://www.user2019.fr/talk_schedule/)
 
 ### Package flextable: a grammar to produce tabular reporting from R - Quentin Fazilleau
 
@@ -33,73 +37,45 @@ ft <- bold(ft, i = 2:4, j = "cyl", bold = TRUE)
 ft
 ```
 
+
 ### Connecting R/R Markdown and Microsoft Word using StatTag for Collaborative Reproducibility - Leah Welty
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/K3QwG4LB9a4" frameborder="0" allowfullscreen></iframe>
+<iframe width="560" height="315" align="middle"  src="https://www.youtube.com/embed/K3QwG4LB9a4" frameborder="0" allowfullscreen></iframe>
 
 
 To download and get more details on how to use it go to https://sites.northwestern.edu/stattag/
 
-### `auth0`
+### `auth0`: Secure Authentication in Shiny with Auth0 - Julio Trecenti
 
-authanticate shiny access ?
+Free autehtication service for Shiny apps!   
+See [github.com/curso-r/auth0](https://github.com/curso-r/auth0)
 
-### ggwordcloud
+### ggwordcloud: a word cloud geometry for ggplot2 - Erwan Le Pennec
 
 https://github.com/lepennec/ggwordcloud
 
-### tidyr::pivot_longer!
-
-Enhancements to data tidying  - Hadley
-
-New versions of gather and spread!
-
-- Two key tidyr functions for solving
-  + pivot_longer (previously gather) columns
-  + pivot_wider  (previously spread)
-- Available on github for now
-
-Animations to show what they do  in dataAnim
-
-```{r }
-#devtools::install_github("tidyverse/tidyr")
-#devtools::install_github("chrk623/dataAnim")
-library(dataAnim)
-gather_anim(
-   key = "Subject",
-   value = "Score",
-   col = c("English", "Maths"),
-   data = datoy_wide
- )
-```
-
-
 ```{r}
+library(ggwordcloud)
+data("love_words_small")
+head(love_words_small)
 
-#pivot_longer
-datoy_wide %>% 
-  pivot_longer(cols = English:Maths, names_to = 'Subject',
-             values_to = "Score")
-  
-  
-#pivot_wider
-
-datoy_long %>% 
-  pivot_wider(names_from = Subject, values_from = Score)
-
+set.seed(42)
+ggplot(love_words_small, aes(label = word, size = speakers)) +
+  geom_text_wordcloud() +
+  theme_minimal()
 ```
 
-Untangling list column 
-```{r}
-?unnest_auto
-?unnest_longer
-?unnest_wider
-```
+### mlr3: A new modular framework for machine learning with R - Michel Lang
 
-<iframe width="700" height="315" src="https://tidyr.tidyverse.org/dev/articles/pivot.html" frameborder="0" allowfullscreen></iframe>
+Nice alternative to Caret
 
+[Github](https://github.com/mlr-org/mlr3)
 
-### n() cool #dplyr things -- Romain
+[Book (work in progress)](https://mlr3book.mlr-org.com/use-cases.html)
+
+## Tidyverse news
+
+### n() cool #dplyr things - Romain Francois
 
 [slides](https://speakerdeck.com/romainfrancois/n-cool-number-dplyr-things)
 
@@ -108,7 +84,6 @@ Group function updates
 ?group_modify
 ?group_split
 ```
-
 
 Column wise
 
@@ -126,9 +101,7 @@ iris %>%
 
 ```
 
-### DRY out your workflow with the usethis package
-
-Jenny Bryan
+### DRY out your workflow with the usethis package - Jenny Bryan
 
 Workflow functions directly to be called 
 ```{r}
@@ -151,10 +124,9 @@ good functions for workshops and teaching
 ?usethis::use_zip()
 ```
 
-### Reusing tidyverse code, the easy way 
-Lionel Henry
+### Reusing tidyverse code, the easy way - Lionel Henry
 
-Tidy Eval 
+**Tidy Eval** 
 
 - Powers data masking from the rlang package 
 - Flexible and robust 
@@ -168,24 +140,52 @@ Tidy Eval
 [slides here](https://speakerdeck.com/lionelhenry/reusing-tidyverse-code)
 
 
-### mlr3
 
-Nice alternative to Caret
+### Enhancements to data tidying - Hadley Wickham 
 
-Github
+New versions of gather and spread!
+
+- Two key tidyr functions for solving
+  + pivot_longer (previously gather) columns
+  + pivot_wider  (previously spread)
+- Available on github for now
+
+<!-- Animations to show what they do  in dataAnim -->
+
+<!-- ```{r } -->
+<!-- #devtools::install_github("tidyverse/tidyr") -->
+<!-- #devtools::install_github("chrk623/dataAnim") -->
+<!-- library(dataAnim) -->
+<!-- gather_anim( -->
+<!--    key = "Subject", -->
+<!--    value = "Score", -->
+<!--    col = c("English", "Maths"), -->
+<!--    data = datoy_wide -->
+<!--  ) -->
+<!-- ``` -->
 
 
-[Github](https://github.com/mlr-org/mlr3)
+```{r, eval=FALSE}
+#pivot_longer
+datoy_wide %>% 
+  pivot_longer(cols = English:Maths, names_to = 'Subject',
+             values_to = "Score")
+  
+#pivot_wider
+datoy_long %>% 
+  pivot_wider(names_from = Subject, values_from = Score)
 
+```
 
-[Book (work in progress)](https://mlr3book.mlr-org.com/use-cases.html)
+Untangling list column 
+```{r, eval=FALSE}
+?unnest_auto
+?unnest_longer
+?unnest_wider
+```
 
+<iframe width="700" height="315" src="https://tidyr.tidyverse.org/dev/articles/pivot.html" frameborder="0" allowfullscreen></iframe>
 
-### FREE shiny app authentication 
-
-autho0 Package
-
-[authO](https://github.com/curso-r/auth0)
 
 
 
